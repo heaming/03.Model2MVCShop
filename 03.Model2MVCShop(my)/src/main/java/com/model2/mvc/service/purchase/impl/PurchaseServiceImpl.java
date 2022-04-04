@@ -59,7 +59,4 @@ public class PurchaseServiceImpl implements PurchaseService{
 		//purchase.getPurchaseProd().setProTranCode(proTranCode);
 	}
 	
-	public List<Purchase> getSales(int prodNo) throws Exception {
-		return purchaseDao.getSalesList(prodNo);
-	}
 }

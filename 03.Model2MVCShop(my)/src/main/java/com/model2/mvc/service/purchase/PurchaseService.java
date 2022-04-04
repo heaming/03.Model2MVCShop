@@ -19,6 +19,4 @@ public interface PurchaseService {
 	public Purchase updatePurchase(Purchase purchase) throws Exception;
 	
 	public void updateTranCode(Purchase purchase) throws Exception;
-	
-	public List<Purchase> getSales(int prodNo) throws Exception;
 }

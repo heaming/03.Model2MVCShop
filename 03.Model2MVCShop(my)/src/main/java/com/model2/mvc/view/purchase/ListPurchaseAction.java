@@ -30,7 +30,7 @@ public class ListPurchaseAction extends Action {
 		}
 		search.setCurrentPage(currentPage);
 		
-		int pageSize = Integer.parseInt( getServletContext().getInitParameter("pageSize"));
+		int pageSize = Integer.parseInt(getServletContext().getInitParameter("pageSize"));
 		int pageUnit  =  Integer.parseInt(getServletContext().getInitParameter("pageUnit"));
 		search.setPageSize(pageSize);
 		

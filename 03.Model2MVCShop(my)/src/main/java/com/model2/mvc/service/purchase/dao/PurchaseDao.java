@@ -122,9 +122,9 @@ public class PurchaseDao {
 		
 		if (search.getSearchCondition() != null) {
 			if ( search.getSearchCondition().equals("0") &&  !search.getSearchKeyword().equals("") ) {
-				sql += " WHERE buyer_id = '" + search.getSearchKeyword()+"'";
+				sql += " WHERE buyer_id LIKE '%" + search.getSearchKeyword()+"%'";
 			} else if ( search.getSearchCondition().equals("1") && !search.getSearchKeyword().equals("")) {
-				sql += " WHERE prod_no ='" + search.getSearchKeyword()+"'";
+				sql += " WHERE prod_no LIKE '%" + search.getSearchKeyword()+"%'";
 			}
 		}
 		
@@ -238,56 +238,6 @@ public class PurchaseDao {
 		stmt.close();
 		con.close();	
 	}
-	
-	
-	public List<Purchase> getSalesList(int prodNo) throws Exception {
-		
-		Connection con = DBUtil.getConnection();
-		
-		String sql = "SELECT * FROM transaction "
-				+ " WHERE prod_no=" + prodNo 
-				+ " ORDER by tran_no";
-		
-		PreparedStatement stmt = con.prepareStatement(sql, 
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt.executeQuery();
-		
-		rs.last();
-		int total = rs.getRow();
-		System.out.println("[PurchaseDao] :: getSalesList(int prodNo) :: low 수" + total);
-		
-		List<Purchase> list = new ArrayList<Purchase>();
-		
-		if(total > 0) {
-			for(int i = 0; i < total; i++) {
-				Purchase purchase = new Purchase();
-				
-				purchase.setTranNo(rs.getInt("tran_no"));
-				purchase.setPurchaseProd(new ProductDao().findProduct(rs.getInt("prod_no")));
-				purchase.setBuyer(new UserDao().findUser(rs.getString("buyer_id")));
-				purchase.setPaymentOption(rs.getString("payment_option"));
-				purchase.setReceiverName(rs.getString("receiver_name"));
-				purchase.setReceiverPhone(rs.getString("receiver_phone"));
-				purchase.setDivyAddr(rs.getString("demailaddr"));
-				purchase.setDivyRequest(rs.getString("dlvy_request"));
-				purchase.setTranCode(rs.getString("tran_status_code"));
-				purchase.setOrderDate(rs.getDate("order_data"));
-				purchase.setDivyDate(rs.getString("dlvy_date") != null ? rs.getString("dlvy_date") : "");
-				
-				list.add(purchase);
-				if(!rs.next()) { 
-					break; 
-				}
-			}
-		}
-		
-		rs.close();
-		stmt.close();
-		con.close();
-		
-		return list;
-	}
-	
 	
 	// 게시판 Page 처리를 위한 전체 Row(totalCount)  return
 	private int getTotalCount(String sql) throws Exception {

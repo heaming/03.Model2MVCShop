@@ -5,7 +5,7 @@
 <%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 
 <%@ page import="java.util.List"  %>
-
+ 
 <%@ page import="com.model2.mvc.service.domain.User" %>
 <%@ page import="com.model2.mvc.common.Search" %>
 <%@page import="com.model2.mvc.common.Page"%>
@@ -113,7 +113,9 @@
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">판매상품</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">판매상태</td>		
+		<td class="ct_list_b">판매상태</td>
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">거래내역 수정</td>			
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -150,24 +152,24 @@
 			<td></td>
 			<td align="left"><a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=search">${purchase.purchaseProd.prodName}</td>
 			<td></td>
-			<td align="left">
+			<td align="center">
 				<c:choose>
 						<c:when test="${purchase.tranCode.equals('001')}">
-							${trancode = "상품 준비중"}	
+							${trancode = "예약 중"}	
 						</c:when>
 						<c:when test="${purchase.tranCode.equals('002')}">
-							${trancode = "배송중"}	
-						</c:when>
-						<c:when test="${tranCode.equals('003')}">
-							${trancode = "배송 완료"}	
-						</c:when>
-						<c:when test="${tranCode.equals('004')}">
-							${trancode = "품절"}	
+							${trancode = "거래 완료"}	
 						</c:when>
 						<c:otherwise>
 							${trancode = "판매중"}	
 						</c:otherwise>		
 					</c:choose>	
+			</td>
+			<td></td>
+			<td align="center">
+				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=">판매 중</a>
+				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=001">예약 중</a>
+				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=002">거래 완료</a>
 			</td>		
 		</tr>
 		<tr>

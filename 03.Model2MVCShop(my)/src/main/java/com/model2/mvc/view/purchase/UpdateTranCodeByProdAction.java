@@ -19,32 +19,18 @@ public class UpdateTranCodeByProdAction extends Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String menu = request.getParameter("menu");
-		String tranCode = request.getParameter("tranCode");	
-		int prodNo = Integer.parseInt(request.getParameter("prodNo"));
-
-		ProductService prodService = new ProductServiceImpl();	
-		Product product = prodService.getProduct(prodNo);
+		int tranNo = Integer.parseInt(request.getParameter("tranNo"));	
+		String tranCode = request.getParameter("tranCode");
 		
-		PurchaseService tranService = new PurchaseServiceImpl();
-		List<Purchase> saleList = tranService.getSales(prodNo);
-		int tranNo = 0;
 		
-		for(Purchase purchase : saleList) {
-			if(purchase.getTranCode().equals("001")) {
-				purchase.setTranCode("002");
-			} else if(purchase.getTranCode().equals("002")) {
-				purchase.setTranCode("003");
-			} else if(purchase.getTranCode().equals("003")) {
-				purchase.setTranCode("004");
-			}
-			
-			tranNo = purchase.getTranNo();
-			product.setProTranCode(purchase.getTranCode());
-			tranService.updateTranCode(purchase);
-			System.out.println("[UpdateTranCodeByProdAction] :: "+ purchase);
-		}
+		Purchase purchase = new Purchase();
+		purchase.setTranNo(tranNo);
+		purchase.setTranCode(tranCode);
 		
-		return "redirect:/updateTranCode.do?prodNo="+prodNo+"&tranNo="+tranNo+"&menu="+menu;
+		PurchaseService purchaseService = new PurchaseServiceImpl();
+		purchaseService.updateTranCode(purchase);
+	
+		return "redirect:/listSale.do?menu=manage";
 	}
 
 }
