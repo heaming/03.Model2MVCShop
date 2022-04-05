@@ -22,36 +22,38 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
+<table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37">
+			<img src="/images/ct_ttl_img01.gif" 	width="15" height="37"/>
 		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
+		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">상품상세조회</td>
+					<td width="93%" class="ct_ttl01">상품등록</td>
 					<td width="20%" align="right">&nbsp;</td>
 				</tr>
 			</table>
 		</td>
-		<td width="12" height="37"><img src="/images/ct_ttl_img03.gif" width="12" height="37"></td>
+		<td width="12" height="37">
+			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
+		</td>
 	</tr>
 </table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:13px;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 13px;">
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
 		<td width="104" class="ct_write">
-			상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105">${product.prodNo}</td>
+					<td width="105">${product.prodName}</td>
 					<td></td>
 				</tr>
 			</table>
@@ -60,59 +62,63 @@
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
-	
+
 	<tr>
 		<td width="104" class="ct_write">
-			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.prodName}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품이미지 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.fileName}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>	
-	<tr>
-		<td width="104" class="ct_write">
-			상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			상품상세정보 <img  src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${product.prodDetail}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>		
+	</tr>
+
 	<tr>
-		<td width="104" class="ct_write">제조일자</td>
+		<td width="104" class="ct_write">
+			제조일자<img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.manuDate}</td>
+		<td class="ct_write01">${product.dueDate}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>	
+	</tr>
 	<tr>
-		<td width="104" class="ct_write">가격</td>
+		<td width="104" class="ct_write">
+			판매 가격<img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${product.price}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>	
+	</tr>
 	<tr>
-		<td width="104" class="ct_write">등록일자</td>
+		<td width="104" class="ct_write">
+			원가<img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.regDate}</td>
+		<td class="ct_write01">${product.cost}</td>
 	</tr>
 
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">상품이미지</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<!-- 테이블 시작 -->
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td height="26">
+						<img src="${product.fileName}"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
@@ -128,10 +134,10 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<c:if test="${menu.equals('manage')}">
+						<c:if test="${menu.equals('manage') || user.userId.equals(product.sellerId)}">
 							<a href="/updateProductView.do?prodNo=${product.prodNo}&menu=${menu}">수정</a>
 						</c:if>
-						<c:if test="${menu.equals('search')}">
+						<c:if test="${menu.equals('search') && !user.userId.equals(product.sellerId)}">
 							<a href="/addPurchaseView.do?prodNo=${product.prodNo}&menu=${menu}">구매</a>						
 						</c:if>
 					</td>

@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>RECYCON</title>
+<title>.CONKET</title>
 
 <link href="/css/left.css" rel="stylesheet" type="text/css">
 
@@ -22,7 +22,7 @@
 	<td height="10" >&nbsp;</td>
   </tr>
   <tr>
-    <td width="800" height="30"><h2>RECYCON</h2></td>
+    <td width="800" height="30"><h2>.CONKET</h2></td>
   </tr>
   <tr>
     <td height="20" align="right" background="/images/img_bg.gif">

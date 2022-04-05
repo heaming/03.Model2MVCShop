@@ -40,11 +40,13 @@ public class ProductDao {
 			
 			while(rs.next()) {
 				product = new Product();
-				
 				product.setProdNo(rs.getInt("prod_no"));
+				product.setProdCode(rs.getString("prod_code"));
+				product.setSellerId(rs.getString("seller_id"));
 				product.setProdName(rs.getString("prod_name"));
 				product.setProdDetail(rs.getString("prod_detail"));
-				product.setManuDate(rs.getString("manufacture_day"));
+				product.setDueDate(rs.getString("due_date"));
+				product.setCost(rs.getInt("cost"));
 				product.setPrice(rs.getInt("price"));
 				product.setFileName(rs.getString("image_file"));
 				product.setRegDate(rs.getDate("reg_date"));
@@ -68,11 +70,11 @@ public class ProductDao {
 			String sql = "SELECT * FROM product";		
 			if(search.getSearchCondition() != null) {
 				if(search.getSearchCondition().equals("0") &&  !search.getSearchKeyword().equals("") ){
-					sql += " WHERE prod_no LIKE '%" + search.getSearchKeyword() + "%'";
+					sql += " WHERE prod_name LIKE '%" + search.getSearchKeyword() + "%'";				
 				} else if(search.getSearchCondition().equals("1") &&  !search.getSearchKeyword().equals("") ) {
-					sql += " WHERE prod_name LIKE '%" + search.getSearchKeyword() + "%'";
-				} else if(search.getSearchCondition().equals("2") &&  !search.getSearchKeyword().equals("") ) {
 					sql += " WHERE price LIKE '%" + search.getSearchKeyword() + "%'";
+				} else if(search.getSearchCondition().equals("2") &&  !search.getSearchKeyword().equals("") ) {					
+					sql += " WHERE prod_no LIKE '%" + search.getSearchKeyword() + "%'";
 				}
 			} 
 			sql += " ORDER BY prod_no";
@@ -98,11 +100,9 @@ public class ProductDao {
 				
 				product.setProdNo(rs.getInt("prod_no"));
 				product.setProdName(rs.getString("prod_name"));
-				product.setProdDetail(rs.getString("prod_detail"));
-				product.setManuDate(rs.getString("manufacture_day"));
+				product.setCost(rs.getInt("cost"));
 				product.setPrice(rs.getInt("price"));
-				product.setFileName(rs.getString("image_file"));
-				product.setRegDate(rs.getDate("reg_date"));
+				product.setDueDate(rs.getString("due_date"));
 				
 				list.add(product);				
 			}
@@ -126,15 +126,18 @@ public class ProductDao {
 			Connection con = DBUtil.getConnection();
 			
 			String sql = "INSERT INTO product "
-					+ "VALUES (seq_product_prod_no.nextval, ?, ? , ?, ?, ?, SYSDATE)";
+					+ "VALUES (seq_product_prod_no.nextval, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
 			
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
-			stmt.setString(1, product.getProdName());
-			stmt.setString(2, product.getProdDetail());
-			stmt.setString(3, product.getManuDate().replace("-",""));
-			stmt.setInt(4, product.getPrice());
-			stmt.setString(5, product.getFileName());
+			stmt.setString(1, product.getProdCode());
+			stmt.setString(2, product.getSellerId());
+			stmt.setString(3, product.getProdName());
+			stmt.setString(4, product.getProdDetail());			
+			stmt.setString(5, product.getDueDate().replace("-",""));
+			stmt.setInt(6, product.getCost());
+			stmt.setInt(7, product.getPrice());
+			stmt.setString(8, product.getFileName());
 			stmt.executeUpdate();
 			
 			stmt.close();
@@ -147,8 +150,9 @@ public class ProductDao {
 			Connection con = DBUtil.getConnection();
 			
 			String sql = "UPDATE product SET prod_name = ?,  prod_detail = ?, \r\n"
-					+ "manufacture_day = ?,\r\n"
+					+ "due_date = ?,\r\n"
 					+ "price = ?,\r\n"
+					+ "cost = ?,"
 					+ "image_file=?   \r\n"
 					+ "WHERE prod_no=?";
 			
@@ -156,10 +160,11 @@ public class ProductDao {
 	
 			stmt.setString(1, product.getProdName());
 			stmt.setString(2, product.getProdDetail());
-			stmt.setString(3, product.getManuDate());
+			stmt.setString(3, product.getDueDate());
 			stmt.setInt(4, product.getPrice());
-			stmt.setString(5, product.getFileName());
-			stmt.setInt(6, product.getProdNo());
+			stmt.setInt(5, product.getCost());			
+			stmt.setString(6, product.getFileName());
+			stmt.setInt(7, product.getProdNo());
 			stmt.executeUpdate();
 			
 			stmt.close();

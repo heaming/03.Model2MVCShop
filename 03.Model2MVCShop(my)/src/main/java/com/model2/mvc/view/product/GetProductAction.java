@@ -35,7 +35,6 @@ public class GetProductAction extends Action {
 		}
 		
 		history += "&" + new Integer(product.getProdNo()).toString();
-		System.out.println("[GetProductAction.java] history :: "+history); // debugging
 
 		Cookie cookie = new Cookie("history", history);
 

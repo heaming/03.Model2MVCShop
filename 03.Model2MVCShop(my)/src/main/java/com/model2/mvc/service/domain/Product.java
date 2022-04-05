@@ -5,12 +5,15 @@ import java.sql.Date;
 public class Product {
 	
 	// field
+	private String sellerId;
 	private String fileName;
-	private String manuDate;
+	private String dueDate;
+	private int cost;
 	private int price;
 	private String prodDetail;
 	private String prodName;
 	private int prodNo;
+	private String prodCode;
 	private Date regDate;
 	private String proTranCode;
 	
@@ -18,62 +21,124 @@ public class Product {
 	// ctor
 	public Product(){
 	}
-	
-	
-	// method
-	public String getProTranCode() {
-		return proTranCode;
+
+
+	// method :: getter & setter
+	public String getSellerId() {
+		return sellerId;
 	}
-	public void setProTranCode(String proTranCode) {
-		this.proTranCode = proTranCode;
+
+	
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
 	}
+
+
 	public String getFileName() {
 		return fileName;
 	}
+
+
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public String getManuDate() {
-		return manuDate;
+
+
+	public String getDueDate() {
+		return dueDate;
 	}
-	public void setManuDate(String manuDate) {
-		this.manuDate = manuDate;
+
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
 	}
+
+
+	public int getCost() {
+		return cost;
+	}
+
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+
 	public int getPrice() {
 		return price;
 	}
+
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+
 	public String getProdDetail() {
 		return prodDetail;
 	}
+
+
 	public void setProdDetail(String prodDetail) {
 		this.prodDetail = prodDetail;
 	}
+
+
 	public String getProdName() {
 		return prodName;
 	}
+
+
 	public void setProdName(String prodName) {
 		this.prodName = prodName;
 	}
+
+
 	public int getProdNo() {
 		return prodNo;
 	}
+
+
 	public void setProdNo(int prodNo) {
 		this.prodNo = prodNo;
 	}
+
+
+	public String getProdCode() {
+		return prodCode;
+	}
+
+
+	public void setProdCode(String prodCode) {
+		this.prodCode = prodCode;
+	}
+
+
 	public Date getRegDate() {
 		return regDate;
 	}
+
+
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
+
+	public String getProTranCode() {
+		return proTranCode;
+	}
+
+
+	public void setProTranCode(String proTranCode) {
+		this.proTranCode = proTranCode;
+	}
+
+
 	@Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
-				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
-	}	
+		return "Product [sellerId=" + sellerId + ", fileName=" + fileName + ", dueDate=" + dueDate + ", cost=" + cost
+				+ ", price=" + price + ", prodDetail=" + prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo
+				+ ", prodCode=" + prodCode + ", regDate=" + regDate + ", proTranCode=" + proTranCode + "]";
+	}
+
 }

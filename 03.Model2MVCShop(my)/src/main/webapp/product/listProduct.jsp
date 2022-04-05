@@ -69,13 +69,13 @@ function fncGetList(currentPage) {
 				<option value="1" <%= (searchCondition.equals("1") ? "selected" : "") %>>상품명</option>
 				<option value="2" <%= (searchCondition.equals("2") ? "selected" : "") %>>상품가격</option>
 			 --%>
-				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
-				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
-				<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
+				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
+				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품가격</option>
+				<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품번호</option>
 			</select>
 			<%-- <input 	type="text" name="searchKeyword"  value="<%=searchKeyword %>" class="ct_input_g" style="width:200px; height:19px" />--%>		
 			<input type="text" name="searchKeyword" 
-			value="${! empty search.searchKeyword ? search.searchKeyword : ''}"  
+			value="${! empty search.searchKeyword ? search.searchKeyword : ""}"  
 			class="ct_input_g" style="width:200px; height:20px" > 
 		</td>
 		<td align="right" width="70">
@@ -112,9 +112,11 @@ function fncGetList(currentPage) {
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">가격</td>
 		<td class="ct_line02"></td>
+		<td class="ct_list_b" width="150">할인율</td>
+		<td class="ct_line02"></td>
 		<td class="ct_list_b">원가</td>	
 		<td class="ct_line02"></td>	
-		<td class="ct_list_b">등록일(유통기한)</td>		
+		<td class="ct_list_b">유효기한</td>		
 	
 	</tr>
 	<tr>
@@ -154,9 +156,11 @@ function fncGetList(currentPage) {
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
-			<td align="left">${product.price}</td>		
+			<td align="left">${((product.cost-product.price)/product.cost*100)}%</td>
 			<td></td>
-			<td align="left">${product.regDate}</td>
+			<td align="left">${product.cost}</td>		
+			<td></td>
+			<td align="left">${product.dueDate.substring(0,4)}년	${product.dueDate.substring(4,6)}월 ${product.dueDate.substring(6)}일</td>
 		</tr>
 		<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
