@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
 
 <%@ page import="java.util.List"  %>
@@ -32,6 +32,10 @@
 function fncGetList(currentPage) {
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
+}
+
+function fncCalDiscount(cost, price) {
+		return (cost - price) / cost * 100 
 }
 </script>
 </head>
@@ -156,7 +160,9 @@ function fncGetList(currentPage) {
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
-			<td align="left">${((product.cost-product.price)/product.cost*100)}%</td>
+ 			<td align="left">
+ 				<fmt:formatNumber var="discount" pattern="###" value="${(product.cost-product.price)/product.cost*100}"/>
+ 				${discount}%</td> 
 			<td></td>
 			<td align="left">${product.cost}</td>		
 			<td></td>
