@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- 
 =====> EL / JSTL
@@ -21,7 +21,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-<title>상품 구매</title>
+<title>거래하기</title>
 <script type="text/javascript" src="../javascript/calendar.js">
 </script>
 
@@ -44,7 +44,7 @@ function fncAddPurchase() {
 			<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td width="93%" class="ct_ttl01">상품구매</td>
+						<td width="93%" class="ct_ttl01">기프티콘 거래</td>
 						<td width="20%" align="right">&nbsp;</td>
 					</tr>
 				</table>
@@ -63,13 +63,13 @@ function fncAddPurchase() {
 		</tr>
 		<tr>
 			<td width="300" class="ct_write">
-				상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+				상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 			</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01" width="299">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td width="105">${product.prodNo}</td>
+						<td width="105">${product.prodName}</td>
 					</tr>
 				</table>
 			</td>
@@ -79,11 +79,19 @@ function fncAddPurchase() {
 		</tr>
 		<tr>
 			<td width="104" class="ct_write">
-				상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+				판매자 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 			</td>
 			<td bgcolor="D6D6D6" width="1"></td>
-			<td class="ct_write01">${product.prodName}</td>
+			<td class="ct_write01">${product.sellerId}</td>
 		</tr>
+		<tr>
+			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+		</tr>
+		<tr>
+			<td width="104" class="ct_write">유효기간</td>
+			<td bgcolor="D6D6D6" width="1"></td>
+			<td class="ct_write01">${product.dueDate.substring(0,4)}년	${product.dueDate.substring(4,6)}월 ${product.dueDate.substring(6)}일까지</td>
+		</tr>		
 		<tr>
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
@@ -98,14 +106,6 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">제조일자</td>
-			<td bgcolor="D6D6D6" width="1"></td>
-			<td class="ct_write01">${product.manuDate}</td>
-		</tr>
-		<tr>
-			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-		</tr>
-		<tr>
 			<td width="104" class="ct_write">가격</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">${product.price}</td>
@@ -114,9 +114,28 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
+			<td width="104" class="ct_write">할인율</td>
+			<td bgcolor="D6D6D6" width="1"></td>
+			<td class="ct_write01">
+				<fmt:formatNumber var="discount" pattern="###" value="${(product.cost-product.price)/product.cost*100}"/>
+ 				${discount}%
+			</td>
+		</tr>
+		<tr>
+			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+		</tr>
+		<tr>
+			<td width="104" class="ct_write">원가</td>
+			<td bgcolor="D6D6D6" width="1"></td>
+			<td class="ct_write01">${product.cost}</td>
+		</tr>
+		<tr>
+			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+		</tr>
+		<tr>
 			<td width="104" class="ct_write">등록일자</td>
 			<td bgcolor="D6D6D6" width="1"></td>
-			<td class="ct_write01">${product.regDate}</td>
+			<td class="ct_write01">${product.calRegDate}</td>
 		</tr>
 		<tr>
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -147,7 +166,7 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">구매자이름</td>
+			<td width="104" class="ct_write">선물받는 사람</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
 				<input type="text" name="receiverName" 	class="ct_input_g" 
@@ -158,7 +177,7 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">구매자연락처</td>
+			<td width="104" class="ct_write">선물받는 연락처</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
 				<input 	type="text" name="receiverPhone" class="ct_input_g" 
@@ -169,7 +188,7 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">구매자주소</td>
+			<td width="104" class="ct_write">구매자 이메일</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
 				<input 	type="text" name="receiverAddr" class="ct_input_g" 
@@ -180,24 +199,11 @@ function fncAddPurchase() {
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">구매요청사항</td>
+			<td width="104" class="ct_write">판매자에게 보내는 메시지</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
-				<input		type="text" name="receiverRequest" 	class="ct_input_g" 
+				<input		type="text" name="receiverMsg" 	class="ct_input_g" 
 								style="width: 100px; height: 19px" maxLength="20" />
-			</td>
-		</tr>
-		<tr>
-			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-		</tr>
-		<tr>
-			<td width="104" class="ct_write">배송희망일자</td>
-			<td bgcolor="D6D6D6" width="1"></td>
-			<td width="200" class="ct_write01">
-				<input 	type="text" readonly="readonly" name="receiverDate" class="ct_input_g" 
-								style="width: 100px; height: 19px" maxLength="20"/>
-				<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-							onclick="show_calendar('document.addPurchase.receiverDate', document.addPurchase.receiverDate.value)"/>
 			</td>
 		</tr>
 		<tr>
@@ -215,7 +221,7 @@ function fncAddPurchase() {
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 						</td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-							<a href="javascript:fncAddPurchase();">구매</a>
+							<a href="javascript:fncAddPurchase();">거래 요청</a>
 						</td>
 						<td width="14" height="23">
 							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

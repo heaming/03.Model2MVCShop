@@ -2,20 +2,23 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
+import com.model2.mvc.common.util.CommonUtil;
+
 public class Product {
 	
 	// field
+	private int prodNo;
+	private int prodCode;
+	private String prodName;
 	private String sellerId;
-	private String fileName;
 	private String dueDate;
+	private String prodDetail;
 	private int cost;
 	private int price;
-	private String prodDetail;
-	private String prodName;
-	private int prodNo;
-	private String prodCode;
+	private String fileName;
 	private Date regDate;
 	private String proTranCode;
+	private String calRegDate;
 	
 	
 	// ctor
@@ -104,12 +107,12 @@ public class Product {
 	}
 
 
-	public String getProdCode() {
+	public int getProdCode() {
 		return prodCode;
 	}
 
 
-	public void setProdCode(String prodCode) {
+	public void setProdCode(int prodCode) {
 		this.prodCode = prodCode;
 	}
 
@@ -133,12 +136,17 @@ public class Product {
 		this.proTranCode = proTranCode;
 	}
 
+	
+	public String getCalRegDate() {
+		return CommonUtil.calDday(regDate);
+	}
+
 
 	@Override
 	public String toString() {
-		return "Product [sellerId=" + sellerId + ", fileName=" + fileName + ", dueDate=" + dueDate + ", cost=" + cost
-				+ ", price=" + price + ", prodDetail=" + prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo
-				+ ", prodCode=" + prodCode + ", regDate=" + regDate + ", proTranCode=" + proTranCode + "]";
+		return "Product [prodNo=" + prodNo + ", prodCode=" + prodCode + ", prodName=" + prodName + ", sellerId="
+				+ sellerId + ", dueDate=" + dueDate + ", prodDetail=" + prodDetail + ", cost=" + cost + ", price="
+				+ price + ", fileName=" + fileName + ", regDate=" + regDate + ", proTranCode=" + proTranCode
+				+ ", calDueDate=" + calRegDate + "]";
 	}
-
 }

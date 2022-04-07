@@ -15,8 +15,6 @@ public class AddPurchaseAction extends Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		System.out.println(new ProductDao().findProduct(Integer.parseInt(request.getParameter("prodNo"))));
-		
 		Purchase purchase = new Purchase();
 		
 		purchase.setPurchaseProd(new ProductDao().findProduct(Integer.parseInt(request.getParameter("prodNo"))));
@@ -25,8 +23,8 @@ public class AddPurchaseAction extends Action {
 		purchase.setReceiverName(request.getParameter("receiverName"));
 		purchase.setReceiverPhone(request.getParameter("receiverPhone"));
 		purchase.setDivyAddr(request.getParameter("receiverAddr"));
-		purchase.setDivyRequest(request.getParameter("receiverRequest"));
-		purchase.setDivyDate(request.getParameter("receiverDate"));
+		purchase.setDivyMessage(request.getParameter("receiverMsg"));
+		//purchase.setDivyDate(System.currentTimeMillis());
 		purchase.setTranCode("001");
 
 		System.out.println(purchase.getPurchaseProd().getProdNo());

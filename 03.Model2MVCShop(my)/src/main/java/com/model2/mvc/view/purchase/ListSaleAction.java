@@ -41,7 +41,12 @@ public class ListSaleAction extends Action {
 		
 		// Business logic ผ๖วเ
 		PurchaseService purchaseService = new PurchaseServiceImpl();
-		Map<String , Object> map = purchaseService.getSaleList(search);
+		
+		Map<String , Object> map = purchaseService.getUserSaleList(search, userId);
+		
+		if(userId.equals("admin")) {
+			map = purchaseService.getSaleList(search);
+		} 
 		
 		Page resultPage	= 
 				new Page( currentPage, ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);

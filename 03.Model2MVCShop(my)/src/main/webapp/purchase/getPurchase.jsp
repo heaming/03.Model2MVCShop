@@ -110,13 +110,13 @@
 		<tr>
 			<td width="104" class="ct_write">구매요청사항</td>
 			<td bgcolor="D6D6D6" width="1"></td>
-			<td class="ct_write01">${purchase.divyRequest}</td>
+			<td class="ct_write01">${purchase.divyMessage}</td>
 		</tr>
 		<tr>
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 		</tr>
 		<tr>
-			<td width="104" class="ct_write">배송희망일</td>
+			<td width="104" class="ct_write">거래완료일</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">${purchase.divyDate}</td>
 		</tr>

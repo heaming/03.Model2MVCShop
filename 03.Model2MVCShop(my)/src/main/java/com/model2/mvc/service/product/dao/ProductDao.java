@@ -41,7 +41,7 @@ public class ProductDao {
 			while(rs.next()) {
 				product = new Product();
 				product.setProdNo(rs.getInt("prod_no"));
-				product.setProdCode(rs.getString("prod_code"));
+				product.setProdCode(rs.getInt("prod_code"));
 				product.setSellerId(rs.getString("seller_id"));
 				product.setProdName(rs.getString("prod_name"));
 				product.setProdDetail(rs.getString("prod_detail"));
@@ -130,7 +130,7 @@ public class ProductDao {
 			
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
-			stmt.setString(1, product.getProdCode());
+			stmt.setInt(1, product.getProdCode());
 			stmt.setString(2, product.getSellerId());
 			stmt.setString(3, product.getProdName());
 			stmt.setString(4, product.getProdDetail());			

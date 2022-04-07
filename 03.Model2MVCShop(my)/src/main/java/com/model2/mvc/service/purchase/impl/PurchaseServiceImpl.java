@@ -38,6 +38,11 @@ public class PurchaseServiceImpl implements PurchaseService{
 	public Map<String, Object> getPurchaseList(Search search, String userId) throws Exception {
 		return purchaseDao.getPurchaseList(search, userId);
 	}
+	
+	@Override
+	public Map<String, Object> getUserSaleList(Search search, String userId) throws Exception {
+		return purchaseDao.getUserSaleList(search, userId);
+	}
 
 	@Override
 	public Map<String, Object> getSaleList(Search search) throws Exception {

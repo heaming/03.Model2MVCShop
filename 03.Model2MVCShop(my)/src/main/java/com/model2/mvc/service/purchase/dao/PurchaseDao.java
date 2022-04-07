@@ -11,8 +11,8 @@ import java.util.Map;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
-import com.model2.mvc.service.product.dao.ProductDao;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.product.dao.ProductDao;
 import com.model2.mvc.service.user.dao.UserDao;
 
 public class PurchaseDao {
@@ -43,9 +43,9 @@ public class PurchaseDao {
 			purchase.setReceiverName(rs.getString("receiver_name"));
 			purchase.setReceiverPhone(rs.getString("receiver_phone"));
 			purchase.setDivyAddr(rs.getString("demailaddr"));
-			purchase.setDivyRequest(rs.getString("dlvy_request"));
+			purchase.setDivyMessage(rs.getString("dlvy_message"));
 			purchase.setTranCode(rs.getString("tran_status_code"));
-			purchase.setOrderDate(rs.getDate("order_data"));
+			purchase.setOrderDate(rs.getDate("order_date"));
 			purchase.setDivyDate(rs.getString("dlvy_date"));
 		}
 		
@@ -91,11 +91,74 @@ public class PurchaseDao {
 			purchase.setReceiverName(rs.getString("receiver_name"));
 			purchase.setReceiverPhone(rs.getString("receiver_phone"));
 			purchase.setDivyAddr(rs.getString("demailaddr"));
-			purchase.setDivyRequest(rs.getString("dlvy_request"));
+			purchase.setDivyMessage(rs.getString("dlvy_message"));
 			purchase.setTranCode(rs.getString("tran_status_code"));
-			purchase.setOrderDate(rs.getDate("order_data"));
+			purchase.setOrderDate(rs.getDate("order_date"));
 			purchase.setDivyDate(rs.getString("dlvy_date"));
 			
+			list.add(purchase);
+		}
+		
+		//==> totalCount 정보 저장
+		map.put("totalCount", new Integer(totalCount));
+		//==> currentPage 의 게시물 정보 갖는 List 저장
+		map.put("list", list);
+
+		rs.close();
+		stmt.close();
+		con.close();
+
+		return map;		
+	}
+	
+	
+	//TODO getUserSaleList
+	public Map<String, Object> getUserSaleList(Search search, String userId) throws Exception{
+		
+		Map<String , Object>  map = new HashMap<String, Object>();
+		
+		Connection con = DBUtil.getConnection();
+		
+		String sql = "SELECT t.* "
+				+ "FROM product p, transaction t\r\n"
+				+ "WHERE p.prod_no = t.prod_no "
+				+ "AND p.seller_id = '"+ userId +"'";
+		
+		if (search.getSearchCondition() != null) {
+			if ( search.getSearchCondition().equals("0") &&  !search.getSearchKeyword().equals("") ) {
+				sql += " AND t.buyer_id LIKE '%" + search.getSearchKeyword()+"%'";
+			} else if ( search.getSearchCondition().equals("1") && !search.getSearchKeyword().equals("")) {
+				sql += " AND t.prod_no LIKE '%" + search.getSearchKeyword()+"%'";
+			}
+		}
+		
+		sql += " ORDER BY order_date desc";
+		
+		System.out.println("PurchaseDao:: Original SQL :: " + sql);
+
+		//==> TotalCount GET
+		int totalCount = this.getTotalCount(sql);
+		System.out.println("PurchaseDao:: totalCount :: " + totalCount);
+		
+		//==> CurrentPage 게시물만 받도록 Query 다시구성
+		sql = makeCurrentPageSql(sql, search);
+		PreparedStatement stmt = con.prepareStatement(sql, 
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmt.executeQuery();
+		
+		System.out.println(search);
+		
+		List<Purchase> list = new ArrayList<Purchase>();
+		
+		while(rs.next()) {
+			Purchase purchase = new Purchase();
+			purchase.setTranNo(rs.getInt("tran_no"));
+			purchase.setPurchaseProd(new ProductDao().findProduct(rs.getInt("prod_no")));
+			purchase.setBuyer(new UserDao().findUser(rs.getString("buyer_id")));
+			purchase.setTranCode(rs.getString("tran_status_code"));
+			purchase.setOrderDate(rs.getDate("order_date"));
+			purchase.setDivyDate(rs.getString("dlvy_date") != null ? rs.getString("dlvy_date") : "");
+
 			list.add(purchase);
 		}
 		
@@ -128,7 +191,7 @@ public class PurchaseDao {
 			}
 		}
 		
-		sql += " ORDER BY order_data desc";
+		sql += " ORDER BY order_date desc";
 		
 		System.out.println("PurchaseDao::Original SQL :: " + sql);
 		
@@ -152,7 +215,7 @@ public class PurchaseDao {
 			purchase.setPurchaseProd(new ProductDao().findProduct(rs.getInt("prod_no")));
 			purchase.setBuyer(new UserDao().findUser(rs.getString("buyer_id")));
 			purchase.setTranCode(rs.getString("tran_status_code"));
-			purchase.setOrderDate(rs.getDate("order_data"));
+			purchase.setOrderDate(rs.getDate("order_date"));
 			purchase.setDivyDate(rs.getString("dlvy_date") != null ? rs.getString("dlvy_date") : "");
 			
 			list.add(purchase);
@@ -175,7 +238,7 @@ public class PurchaseDao {
 		Connection con = DBUtil.getConnection();
 		
 		String sql = "INSERT INTO transaction "
-				+ "VALUES (seq_transaction_tran_no.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
+				+ "VALUES (seq_transaction_tran_no.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)";
 
 		
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -186,9 +249,10 @@ public class PurchaseDao {
 		stmt.setString(4, purchase.getReceiverName());
 		stmt.setString(5, purchase.getReceiverPhone());
 		stmt.setString(6, purchase.getDivyAddr());
-		stmt.setString(7, purchase.getDivyRequest());
+		stmt.setString(7, purchase.getDivyMessage());
 		stmt.setString(8, purchase.getTranCode());
-		stmt.setDate(9, Date.valueOf(purchase.getDivyDate()));
+		//TODO date 어떻게 설정할지 정하기
+		//stmt.setDate(9, Date.valueOf(purchase.getDivyDate()));
 		stmt.executeUpdate();
 		
 		con.close();		
@@ -203,7 +267,7 @@ public class PurchaseDao {
 				+ "receiver_name = ?,"
 				+ "receiver_phone = ?,"
 				+ "demailaddr = ?,"
-				+ "dlvy_request = ?,"
+				+ "dlvy_message = ?,"
 				+ "dlvy_date = ?"
 				+ "WHERE tran_no = ?";
 		
@@ -213,7 +277,7 @@ public class PurchaseDao {
 		stmt.setString(2, purchase.getReceiverName());
 		stmt.setString(3, purchase.getReceiverPhone());
 		stmt.setString(4, purchase.getDivyAddr());
-		stmt.setString(5, purchase.getDivyRequest());
+		stmt.setString(5, purchase.getDivyMessage());
 		stmt.setString(6, purchase.getDivyDate());
 		stmt.setInt(7, purchase.getTranNo());
 		stmt.executeUpdate();

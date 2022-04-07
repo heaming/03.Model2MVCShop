@@ -19,7 +19,7 @@ public class UpdateProductAction extends Action {
 		Product product = new Product();
 
 		product.setProdNo(prodNo);
-		product.setProdCode(request.getParameter("prodCode"));
+		product.setProdCode(Integer.parseInt(request.getParameter("prodeCode")));
 		product.setProdName(request.getParameter("prodName"));
 		product.setProdDetail(request.getParameter("prodDetail"));
 		product.setDueDate(request.getParameter("dueDate").replace("-",""));

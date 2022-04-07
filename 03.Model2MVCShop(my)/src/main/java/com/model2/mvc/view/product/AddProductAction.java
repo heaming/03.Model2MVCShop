@@ -21,7 +21,7 @@ public class AddProductAction extends Action {
 		User user = (User) session.getAttribute("user");
 
 		Product product = new Product();
-		product.setProdCode("aa");
+		product.setProdCode(Integer.parseInt(request.getParameter("prodCode")));
 		product.setSellerId(user.getUserId());
 		product.setProdName(request.getParameter("prodName"));
 		product.setProdDetail(request.getParameter("prodDetail"));

@@ -69,15 +69,15 @@
 		<tr>
 			<td class="ct_list_b" width="100">구매번호</td>
 			<td class="ct_line02"></td>
-			<td class="ct_list_b" width="150">회원ID</td>
+			<td class="ct_list_b" width="150">판매자ID</td>
 			<td class="ct_line02"></td>
-			<td class="ct_list_b" width="150">회원명</td>
-			<td class="ct_line02"></td>
-			<td class="ct_list_b">전화번호</td>
-			<td class="ct_line02"></td>
-			<td class="ct_list_b">배송현황</td>
+			<td class="ct_list_b" width="150">마지막 메시지</td>
 			<td class="ct_line02"></td>
 			<td class="ct_list_b">구매상품</td>
+			<td class="ct_line02"></td>			
+			<td class="ct_list_b">배송현황</td>
+			<td class="ct_line02"></td>
+			
 		</tr>
 		<tr>
 			<td colspan="11" bgcolor="808285" height="1"></td>
@@ -89,11 +89,9 @@
 			<tr class="ct_list_pop">
 				<td align="center"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a></td>
 				<td></td>
-				<td align="left">${purchase.buyer.userId}</td>
+				<td align="left"><a href="/getUser.do?userId=${purchase.purchaseProd.sellerId}">${purchase.purchaseProd.sellerId}</a></td>
 				<td></td>
-				<td align="left">${purchase.buyer.userName}</td>
-				<td></td>
-				<td align="left">${purchase.buyer.phone}</td>
+				<td align="left">${purchase.divyMessage}</td>
 				<td></td>	
 				<td align="left">
 					<c:choose>

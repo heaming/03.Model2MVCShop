@@ -17,10 +17,15 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<title>구매정보 수정</title>
+<title>거래 정보 수정</title>
 
-<script type="text/javascript" src="../javascript/calendar.js">
+<script type="text/javascript">
+function fncUpdatePurchase() {
+	document.updatePurchase.submit();
+}
+
 </script>
+
 
 </head>
 
@@ -36,7 +41,7 @@
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">구매정보수정</td>
+					<td width="93%" class="ct_ttl01">거래정보 수정</td>
 					<td width="20%" align="right">&nbsp;</td>
 				</tr>
 			</table>
@@ -108,24 +113,11 @@
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
 	<tr>
-		<td width="104" class="ct_write">구매요청사항</td>
+		<td width="104" class="ct_write">판매자에게 보내는 메시지</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input 	type="text" name="receiverRequest" 	class="ct_input_g" style="width: 100px; height: 19px" 
-							maxLength="20" value="${purchase.divyRequest}" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송희망일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td width="200" class="ct_write01">
-			<input type="text" readonly="readonly" name="divyDate" class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="20"/>
-				<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-							onclick="show_calendar('document.updatePurchase.divyDate', document.updatePurchase.divyDate.value)"/>
+			<input 	type="text" name="receiverMsg" 	class="ct_input_g" style="width: 100px; height: 19px" 
+							maxLength="20" value="${purchase.divyMessage}" />
 		</td>
 	</tr>
 	<tr>
@@ -143,7 +135,7 @@
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<input type="submit" value="수정"/>
+					<a href="javascript:fncUpdatePurchase()">수정</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

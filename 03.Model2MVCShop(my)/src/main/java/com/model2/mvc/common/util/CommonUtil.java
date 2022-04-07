@@ -103,4 +103,29 @@ public class CommonUtil {
 			return toAmountStr(amount.toString());
 		}
 	}
+	
+	public static String calDday(Date date) {
+		
+		long curTime = System.currentTimeMillis();
+		long regTime = date.getTime();
+		long diffTime = (curTime - regTime) / 1000;
+		String msg = null;
+		
+		if (diffTime < 60) {
+			msg = diffTime + "초 전";
+		} else if ((diffTime /= 60) < 60) {
+			msg = diffTime + "분 전";
+		} else if ((diffTime /= 60) < 24) {
+			msg = (diffTime) + "시간 전";
+		} else if ((diffTime /= 24) < 24) {
+			msg = (diffTime) + "일 전";
+		} else if ((diffTime /= 30) < 12) {
+			msg = (diffTime) + "달 전";
+		} else {
+			msg = (diffTime) + "년 전";
+		}
+		
+		return msg;
+		
+	}
 }

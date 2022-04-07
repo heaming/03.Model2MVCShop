@@ -23,8 +23,7 @@ public class UpdatePurchaseAction extends Action {
 		purchase.setReceiverName(request.getParameter("receiverName"));
 		purchase.setReceiverPhone(request.getParameter("receiverPhone"));
 		purchase.setDivyAddr(request.getParameter("receiverAddr"));
-		purchase.setDivyRequest(request.getParameter("receiverRequest"));
-		purchase.setDivyDate(request.getParameter("divyDate"));
+		purchase.setDivyMessage(request.getParameter("receiveMsg"));
 		
 		System.out.println("UpdatePuchaseAction :: purchaseVO ::" +purchase);
 		

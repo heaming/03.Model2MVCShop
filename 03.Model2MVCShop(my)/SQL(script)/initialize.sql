@@ -25,7 +25,7 @@ CREATE TABLE users (
 
 CREATE TABLE product ( 
 	prod_no 					NUMBER 				NOT NULL,
-	prod_code 					VARCHAR2(20) 		NOT NULL,
+	prod_code 					NUMBER(3) 		NOT NULL REFERENCES prodtag(tag_no),
 	seller_id					VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
 	prod_name 					VARCHAR2(100) 	NOT NULL,
 	prod_detail 				VARCHAR2(200),
@@ -45,12 +45,27 @@ CREATE TABLE transaction (
 	receiver_name 		VARCHAR2(20),
 	receiver_phone		VARCHAR2(14),
 	demailaddr 				VARCHAR2(100),
-	dlvy_request 			VARCHAR2(100),
+	dlvy_message 			VARCHAR2(100),
 	tran_status_code	CHAR(3),
-	order_data 				DATE,
+	order_date 				DATE,
 	dlvy_date 				DATE,
 	PRIMARY KEY(tran_no)
 );
+
+CREATE TABLE prodtag (
+	tag_no	NUMBER(3) NOT NULL,
+	tag_name VARCHAR2(20) NOT NULL,	
+	PRIMARY KEY(tag_no)
+)
+
+INSERT
+INTO prodtag VALUES (100, 'cafe');
+
+INSERT
+INTO prodtag VALUES (101, 'starbucks');
+
+INSERT
+INTO prodtag VALUES (102, 'twosomeplace');
 
 
 INSERT 
@@ -131,10 +146,10 @@ INSERT INTO users
 VALUES ( 'user23', 'SCOTT', '2323', 'user', NULL, NULL, NULL, NULL, sysdate);
 
 
-insert into product values (seq_product_prod_no.nextval, 'a-starbucks', 'user15', '삼성센스 2G','sens 메모리 2Giga','20221121',4500, 3000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2021/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'a-starbucks', 'user15', '연꽃','정원을 가꿔보세요','20221022',5000, 4200, 'AHlbAAAAtDPSiQAA.jpg',to_date('2021/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval, 'a-twosome', 'user16','삼성센스','노트북','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval, 'b-bbq', 'user17','황금올리브','치킨','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 101, 'user15', '삼성센스 2G','sens 메모리 2Giga','20221121',4500, 3000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2021/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 101, 'user15', '연꽃','정원을 가꿔보세요','20221022',5000, 4200, 'AHlbAAAAtDPSiQAA.jpg',to_date('2021/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 100, 'user16','삼성센스','노트북','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 102, 'user17','황금올리브','치킨','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 
 
            
@@ -149,3 +164,10 @@ insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','201
 
 
 commit;
+
+select t.* from product p, transaction t
+where p.prod_no = t.prod_no and p.seller_id = 'user05';
+
+
+
+
