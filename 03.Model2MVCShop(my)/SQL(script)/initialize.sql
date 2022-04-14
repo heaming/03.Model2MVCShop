@@ -150,6 +150,7 @@ insert into product values (seq_product_prod_no.nextval, 101, 'user15', '»ï¼º¼¾½
 insert into product values (seq_product_prod_no.nextval, 101, 'user15', '¿¬²É','Á¤¿øÀ» °¡²ãº¸¼¼¿ä','20221022',5000, 4200, 'AHlbAAAAtDPSiQAA.jpg',to_date('2021/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
 insert into product values (seq_product_prod_no.nextval, 100, 'user16','»ï¼º¼¾½º','³ëÆ®ºÏ','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 insert into product values (seq_product_prod_no.nextval, 102, 'user17','È²±Ý¿Ã¸®ºê','Ä¡Å²','20220212',6800, 2000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 102, 'user03','Ã»¾ç¸¶¿äÇª¶ó´ß','Ä¡Å²','20230512',18000, 12000, 'AHlbAAAAug1vsgAA.jpg',to_date('2021/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 
 
            

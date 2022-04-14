@@ -1,29 +1,10 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- 
 
-<%@ page import="java.util.List"  %>
-<%@ page import="com.model2.mvc.service.domain.*" %>
-<%@ page import="com.model2.mvc.common.Search" %>
-<%@ page import="com.model2.mvc.common.Page"%>
-<%@ page import="com.model2.mvc.common.util.CommonUtil"%>
-
-<%
-	List<Product> list = (List<Product>)request.getAttribute("list");
-	Page resultPage=(Page)request.getAttribute("resultPage");	
-
-	Search search = (Search)request.getAttribute("search");
-	String menu = (String) request.getAttribute("menu");
-	
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-	
-%>
---%>
 <html>
 <head>
-<title>상품 목록조회</title>
+<title>카테고리</title>
 
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
@@ -32,10 +13,6 @@
 function fncGetList(currentPage) {
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
-}
-
-function fncCalDiscount(cost, price) {
-		return (cost - price) / cost * 100 
 }
 </script>
 </head>
@@ -68,6 +45,11 @@ function fncCalDiscount(cost, price) {
 	<tr>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
+			<%-- // EL / JSTL 
+				<option value="0" <%= (searchCondition.equals("0") ? "selected" : "") %>>상품번호</option>
+				<option value="1" <%= (searchCondition.equals("1") ? "selected" : "") %>>상품명</option>
+				<option value="2" <%= (searchCondition.equals("2") ? "selected" : "") %>>상품가격</option>
+			 --%>
 				<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
 				<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품가격</option>
 				<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품번호</option>
@@ -76,16 +58,7 @@ function fncCalDiscount(cost, price) {
 			<input type="text" name="searchKeyword" 
 			value="${! empty search.searchKeyword ? search.searchKeyword : ""}"  
 			class="ct_input_g" style="width:200px; height:20px" > 
-			<br/>
-			<!-- ////// 0413 추가 가격 검색 -->
-			<input type="text" name="searchKeyPriceMin" 
-			value="${! empty search.searchKeyword ? search.searchKeyword : ""}"  
-			class="ct_input_g" style="width:200px; height:20px" > 
-			<input type="text" name="searchKeyPriceMax" 
-			value="${! empty search.searchKeyword ? search.searchKeyword : ""}"  
-			class="ct_input_g" style="width:200px; height:20px" > 
 		</td>
-		
 		<td align="right" width="70">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -103,7 +76,6 @@ function fncCalDiscount(cost, price) {
 		</td>
 	</tr>
 </table>
-
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>

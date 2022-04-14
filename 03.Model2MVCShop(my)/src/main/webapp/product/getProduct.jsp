@@ -137,7 +137,7 @@
 						<c:if test="${menu.equals('manage') || user.userId.equals(product.sellerId)}">
 							<a href="/updateProductView.do?prodNo=${product.prodNo}&menu=${menu}">수정</a>
 						</c:if>
-						<c:if test="${menu.equals('search') && !user.userId.equals(product.sellerId)}">
+						<c:if test="${menu.equals('search') && !(user.userId.equals(product.sellerId))}">
 							<a href="/addPurchaseView.do?prodNo=${product.prodNo}&menu=${menu}">구매</a>						
 						</c:if>
 					</td>
